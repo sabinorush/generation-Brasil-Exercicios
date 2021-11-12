@@ -30,7 +30,6 @@ public class CategoriaController {
 	
 	@GetMapping
 	private ResponseEntity<List<Categoria>> getAll(){
-		
 		return ResponseEntity.ok(categoriaRepository.findAll());
 	}
 	
@@ -59,20 +58,17 @@ public class CategoriaController {
 					
 		return categoriaRepository.findById(categoria.getId())
 				.map(resposta -> {
-					return ResponseEntity.ok().body(categoriaRepository.save(categoria));
-				})
+					return ResponseEntity.ok().body(categoriaRepository.save(categoria));})
 				.orElse(ResponseEntity.notFound().build());
 
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteCategoria(@PathVariable long id) {
-		
 		return categoriaRepository.findById(id)
 				.map(resposta -> {
 					categoriaRepository.deleteById(id);
-					return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-				})
+					return ResponseEntity.status(HttpStatus.NO_CONTENT).build();})
 				.orElse(ResponseEntity.notFound().build());
 	}
 }

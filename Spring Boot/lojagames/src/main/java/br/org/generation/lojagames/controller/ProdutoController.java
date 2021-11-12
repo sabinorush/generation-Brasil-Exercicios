@@ -21,7 +21,7 @@ import br.org.generation.lojagames.model.Produto;
 import br.org.generation.lojagames.repository.ProdutoRepository;
 
 @RestController	
-@RequestMapping("/produtos")
+@RequestMapping("/jogos")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProdutoController {
 	
@@ -56,24 +56,20 @@ public class ProdutoController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto produto) {
-					
+	public ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto produto) {		
 		return produtoRepository.findById(produto.getId())
 				.map(resposta -> {
-					return ResponseEntity.ok().body(produtoRepository.save(produto));
-				})
+					return ResponseEntity.ok().body(produtoRepository.save(produto));})
 				.orElse(ResponseEntity.notFound().build());
 
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteProduto(@PathVariable long id) {
-		
 		return produtoRepository.findById(id)
 				.map(resposta -> {
 					produtoRepository.deleteById(id);
-					return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-				})
+					return ResponseEntity.status(HttpStatus.NO_CONTENT).build();})
 				.orElse(ResponseEntity.notFound().build());
 	}
 
